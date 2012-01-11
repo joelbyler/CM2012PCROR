@@ -4,3 +4,11 @@
 </p>
 
 <%= link_to "<= Back to articles list", articles_path %>
+<br />
+<%= link_to "Delete THIS article", article_path, :method => :delete %>
+
+<br />
+<%= link_to "Delete THIS article (with confirm)", article_path, :method => :delete, :confirm => "Delete '#{@article.title}'?" %>
+
+<br />
+<%= link_to "Edit", edit_article_path(@article) %>

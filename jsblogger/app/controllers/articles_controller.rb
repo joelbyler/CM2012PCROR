@@ -34,4 +34,25 @@ class ArticlesController < ApplicationController
     end
   end
   
+  def destroy
+    #raise params.inspect
+    article = Article.find(params[:id])
+    article.destroy
+    
+    # article.destroy will delete the object from the database but the values still exist in memmory for the duration of this request
+    flash[:message] = "Article '#{article.title} was deleted.'"
+    redirect_to articles_path
+  end
+  
+  def edit
+    @article = Article.find(params[:id])
+  end
+  
+  def update
+    @article = Article.find(params[:id])
+    @article.update_attributes(params[:article])
+    flash[:message] = "Article '#{@article.title} was saved.'"
+    redirect_to article_path(@article)
+  end
+  
 end

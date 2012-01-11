@@ -228,3 +228,49 @@ Reloading...
 1.9.2-p290 :008 > a.errors.full_messages
  => ["Title can't be blank"] 
 1.9.2-p290 :009 > 
+
+For delete action
+rake routes
+admins-MacBook-Pro:jsblogger joelbyler$ rake routes
+    articles GET    /articles(.:format)          {:action=>"index", :controller=>"articles"}
+             POST   /articles(.:format)          {:action=>"create", :controller=>"articles"}
+ new_article GET    /articles/new(.:format)      {:action=>"new", :controller=>"articles"}
+edit_article GET    /articles/:id/edit(.:format) {:action=>"edit", :controller=>"articles"}
+     article GET    /articles/:id(.:format)      {:action=>"show", :controller=>"articles"}
+             PUT    /articles/:id(.:format)      {:action=>"update", :controller=>"articles"}
+             DELETE /articles/:id(.:format)      {:action=>"destroy", :controller=>"articles"}
+Notice destroy action doesn't have a name just a DELETE verb
+instead of using the code below for delete link
+  <%= link_to "Delete THIS article", article_path %>
+you will need to use
+  <%= link_to "Delete THIS article", article_path, :method => :delete %
+This does 2 things
+1) add a new attrib on the anchor tag data-method="delete"
+2) also adds rel="nofollow", this keeps web crawler from using this link
+How does this work?
+  rails uses jquery_ujs.js you will find javascript code which builds a hidden form around the link and adds a hidden field named _method.
+raise params.inspect when you use the destroy link does something like this (notice _method)
+  {"_method"=>"delete", "authenticity_token"=>"XPCBAa92GdVTSNe/n1CogrITD9zSZaC+6yUsJF+DexY=", "action"=>"destroy", "controller"=>"articles", "id"=>"5"}
+
+The system called 'The flash' is for cookies.
+
+problem, after deleting the record we want to show a message to the user so they know for sure that the action occurred successfully.
+flash[:message] = "Article '#{article.title} was deleted.'"
+
+Layouts are under app/views/layouts/
+here you can add content that should be displayed on all pages
+here you can put the flash message so it always shows up when there is a message to show
+<p class="flash"><%= flash[:message] %></p>
+
+NOTE: flash is only available on the next request (not for life of session)
+
+to create a reusable part of a view you can create a partial
+
+to use a partial in an erb you can do it two ways (I like the first better)
+<%= render :partial => 'form' %>
+or
+<%= render => 'form' %>
+
+cool way to update ( updates based on form params hash ), also updates so no need to save again
+    @article = Article.find(params[:id])
+    @article.update_attributes(params[:article])
