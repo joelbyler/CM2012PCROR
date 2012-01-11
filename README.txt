@@ -43,6 +43,7 @@ Response
 	HTML
 
 
+instead of TDD for this session, we'll do EDD (Error Driven Development) ;o)
 
 
 
