@@ -191,4 +191,40 @@ set articles variable in index action, kinda sucks how you have to use the @ syb
 @articles = Article.all
 
 NOTE: <%= 5 + 5 %> will print where <% 5 + 5 %> will not
-dude?
+
+To get a look at the parameters available to your controller you can try to add the below line of code to your action method
+    raise params.inspect
+This will cause the below to be display in browser
+RuntimeError in ArticlesController#show
+{"action"=>"show", "controller"=>"articles", "id"=>"2"}
+
+hash in ruby is key => value   can do :class => "new_article" or {:class => "new_article"}   
+=> is a rocket :)
+
+Book recommendation:  Web Form Design: Filling in the Blanks
+http://www.amazon.com/Web-Form-Design-Filling-Blanks/dp/1933820241
+
+Interesting article about a snowman
+http://stackoverflow.com/questions/3222013/what-is-the-snowman-param-in-rails-3-forms-for
+
+Each form can only have ONE button, but you can tell which button was clicked by looking at the text on the button
+{"utf8"=>"✓", "authenticity_token"=>"XPCBAa92GdVTSNe/n1CogrITD9zSZaC+6yUsJF+DexY=", "article"=>{"title"=>"Fifth Sample Article", "body"=>"Is this really the fifth already?"}, "commit"=>"Create", "action"=>"create", "controller"=>"articles"}
+
+To reload source code in console
+reload!
+
+After adding validation to article.rb
+  validates_presence_of :title
+
+1.9.2-p290 :004 > reload!
+Reloading...
+ => true 
+1.9.2-p290 :005 > a = Article.new
+ => #<Article id: nil, title: nil, body: nil, created_at: nil, updated_at: nil> 
+1.9.2-p290 :006 > a.save
+ => false 
+1.9.2-p290 :007 > a.valid?
+ => false 
+1.9.2-p290 :008 > a.errors.full_messages
+ => ["Title can't be blank"] 
+1.9.2-p290 :009 > 

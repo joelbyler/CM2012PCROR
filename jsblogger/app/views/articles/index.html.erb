@@ -23,4 +23,6 @@ Don't try and build path manually here, rather deligate back to router (just pas
  <li><%= link_to article.title, article_path(article) %></li>
  <% end %>
 </ul>
+
+<%= link_to "New Article", new_article_path, :class => "new_article" %>
 </p>
