@@ -1,0 +1,26 @@
+<h1>Hello, World!</h1>
+<p>
+This won't show 10:
+<% 5 + 5 %>
+</p>
+<p>
+This will show 10:
+<%= 5 + 5 %>
+</p>
+
+<p>
+<ul>
+  <% @articles.each do |article| %>
+ <li><%= article.title %></li>
+ <% end %>
+</ul>
+</p>
+
+<p>
+Don't try and build path manually here, rather deligate back to router (just pass in object instead of article.id)
+<ul>
+  <% @articles.each do |article| %>
+ <li><%= link_to article.title, article_path(article) %></li>
+ <% end %>
+</ul>
+</p>
